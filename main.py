@@ -176,7 +176,7 @@ if mode == 1: # 人對電腦
     humanColor = chooseColor()
     computerColor = 'RED'
     if (humanColor == 'RED'):
-        humanColor = 'GREEN'
+        computerColor = 'GREEN'
     HumanVSComputer(humanColor, computerColor)
 else : # 人對人
     player1Color = chooseColor('Player 1')
