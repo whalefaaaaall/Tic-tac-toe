@@ -8,7 +8,6 @@ my_api_key = os.getenv("MY_API_KEY")
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
 mp = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
 
 # 顏色選擇
@@ -85,16 +84,17 @@ def chooseMode():
     return mode
 def chooseColor(name):
     name = str(name)
-    while 1:
-        print("請選擇" + name + "的顏色")
-        printColor('RED ', 'RED')
-        printColor('GREEN ', 'GREEN')
-        printColor('YELLOW ', 'YELLOW')
-        printColor('BLUE', 'BLUE')
-        print(": ", end = '')
-        color = input()
-        if (color in colorDict):
-            break
+    print("請選擇" + name + "的顏色")
+    printColor('RED ', 'RED')
+    printColor('GREEN ', 'GREEN')
+    printColor('YELLOW ', 'YELLOW')
+    printColor('BLUE', 'BLUE')
+    print(": ", end = '')
+    color = input().upper()
+    if color == '' :
+        return None
+    if color not in colorDict :
+        return None
     return color
 def HumanVSHumanMode(color1, color2):
     player = 1
@@ -137,7 +137,7 @@ def HumanVSComputer(color1, color2):
         printMap(color1, color2)
         if (player == 1):
             while 1:
-                choose = int(input())
+                choose = int(input("請你選擇位置(輸入1~9)："))
                 if choose > 0 and choose < 10 :
                     x = (choose + 2) // 3 - 1
                     y = choose % 3 - 1
@@ -157,14 +157,17 @@ def HumanVSComputer(color1, color2):
         player = changePlayer(player)
         find = findWinner()
         if (find == 'O'):
+            clear()
             print("你是贏家！！！")
             printMap(color1, color2)
             break
         elif (find == 'X'):
+            clear()
             print("贏家是 gemini ！！！")
             printMap(color1, color2)
             break
         elif (find == 'noWinner'):
+            clear()
             print("平手！！！")
             printMap(color1, color2)
             break
@@ -173,14 +176,24 @@ def HumanVSComputer(color1, color2):
 # main
 mode = chooseMode()
 if mode == 1: # 人對電腦
-    humanColor = chooseColor()
+    humanColor = chooseColor("你")
+    if humanColor == None:
+        humanColor = 'RED'
     computerColor = 'RED'
     if (humanColor == 'RED'):
         computerColor = 'GREEN'
     HumanVSComputer(humanColor, computerColor)
 else : # 人對人
     player1Color = chooseColor('Player 1')
+    if player1Color == None:
+        player1Color = 'RED'
     player2Color = chooseColor('Player 2')
+    if player2Color == None:
+        if player1Color == 'RED':
+            player2Color = 'GREEN'
+        else :
+            player2Color = 'RED'
+    print(player1Color, player2Color)
     HumanVSHumanMode(player1Color, player2Color)
     
     

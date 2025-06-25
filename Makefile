@@ -1,2 +1,2 @@
 All:
-	python main.py
+	python classic.py
